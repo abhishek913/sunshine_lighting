@@ -1,1 +1,0 @@
-# sunshine_lighting

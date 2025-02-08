@@ -1,4 +1,4 @@
-package com.example.sunshine_lighting
+package com.sunshinelightin.sunshinelighting
 
 import io.flutter.embedding.android.FlutterActivity
 
