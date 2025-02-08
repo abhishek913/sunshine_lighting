@@ -1,21 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:sunshine_lighting/auth/auth_service.dart';
 import 'package:sunshine_lighting/signup_page.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final authService = AuthService();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  void login() async {
+    final email = emailController.text;
+    final password = passwordController.text;
+
+    try {
+      await authService.signInWithEmailAndPassword(email, password);
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e.toString()),
+          ),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/logo.png',
-              height: 100,
+              'assets/logo.jpeg',
+              height: 150,
             ),
             const Text(
               'Sunshine Lighting',
@@ -28,6 +55,7 @@ class LoginPage extends StatelessWidget {
 
             // Email input
             TextField(
+              controller: emailController,
               decoration: InputDecoration(
                 labelText: 'Email',
                 prefixIcon: const Icon(Icons.email),
@@ -40,6 +68,7 @@ class LoginPage extends StatelessWidget {
 
             // Password input
             TextField(
+              controller: passwordController,
               obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Password',
@@ -66,9 +95,7 @@ class LoginPage extends StatelessWidget {
 
             // Login button
             ElevatedButton(
-              onPressed: () {
-                // Login logic
-              },
+              onPressed: login,
               style: ElevatedButton.styleFrom(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 100, vertical: 16),
@@ -98,7 +125,8 @@ class LoginPage extends StatelessWidget {
             // Sign up link
             TextButton(
               onPressed: () {
-                MaterialPageRoute(builder: (context) => SignupPage());
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const SignupPage()));
               },
               child: const Text('Don’t have an account? Sign up'),
             ),

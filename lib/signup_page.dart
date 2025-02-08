@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SignupPage extends StatelessWidget {
+  const SignupPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -9,6 +11,11 @@ class SignupPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset(
+              'assets/logo.jpeg',
+              height: 150,
+              width: 300,
+            ),
             TextField(
               decoration: InputDecoration(
                 labelText: 'First Name',
@@ -17,7 +24,7 @@ class SignupPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             TextField(
               decoration: InputDecoration(
                 labelText: 'Last Name',
@@ -26,38 +33,39 @@ class SignupPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             TextField(
               decoration: InputDecoration(
                 labelText: 'Email',
-                prefixIcon: Icon(Icons.email),
+                prefixIcon: const Icon(Icons.email),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             TextField(
               obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Password',
-                prefixIcon: Icon(Icons.lock),
-                suffixIcon: Icon(Icons.visibility),
+                prefixIcon: const Icon(Icons.lock),
+                suffixIcon: const Icon(Icons.visibility),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 100, vertical: 16),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 100, vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: Text('Sign up'),
+              child: const Text('Sign up'),
             )
           ],
         ),
