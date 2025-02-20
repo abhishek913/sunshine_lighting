@@ -1,11 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:sunshine_lighting/auth/auth_service.dart';
 
-class SignupPage extends StatelessWidget {
+class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
+
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  final authService = AuthService();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  void signUp() async {
+    final password = passwordController.text;
+    final email = emailController.text;
+
+    try {
+      await authService.signUpWithEmailAndPassword(email, password);
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e.toString()),
+          ),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Sign up'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -17,6 +49,7 @@ class SignupPage extends StatelessWidget {
               width: 300,
             ),
             TextField(
+              controller: firstNameController,
               decoration: InputDecoration(
                 labelText: 'First Name',
                 border: OutlineInputBorder(
@@ -26,6 +59,7 @@ class SignupPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             TextField(
+              controller: lastNameController,
               decoration: InputDecoration(
                 labelText: 'Last Name',
                 border: OutlineInputBorder(
@@ -35,6 +69,7 @@ class SignupPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             TextField(
+              controller: emailController,
               decoration: InputDecoration(
                 labelText: 'Email',
                 prefixIcon: const Icon(Icons.email),
@@ -45,6 +80,7 @@ class SignupPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             TextField(
+              controller: passwordController,
               obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Password',
@@ -57,7 +93,7 @@ class SignupPage extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: signUp,
               style: ElevatedButton.styleFrom(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 100, vertical: 16),
