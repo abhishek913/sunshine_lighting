@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sunshine_lighting/login_page.dart';
+import 'package:sunshine_lighting/login/login_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
